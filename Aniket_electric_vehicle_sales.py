@@ -115,6 +115,19 @@ if uploaded_file is not None:
     ax.set_title("Vehicle Class Distribution by Cluster")
     st.pyplot(fig)
 
+    st.header("Yearly Sales Trends by Vehicle Type")
+    fig6, ax6 = plt.subplots(figsize=(10, 8))
+    class_trends = data.groupby(['Year', 'Vehicle_Type'])['EV_Sales_Quantity'].sum().unstack()
+    class_trends.plot(kind='line', marker='o', ax=ax6)
+    ax6.set_title("Yearly EV Sales Trends by Vehicle Type")
+    ax6.set_xlabel("Year")
+    ax6.set_ylabel("Total EV Sales Quantity")
+    ax6.set_yticks([100000,200000,300000,400000,500000,600000,700000,800000])
+    ax6.legend(title="Vehicle_Type", bbox_to_anchor=(1.05, 1), loc='upper left')
+    ax6.grid()
+    plt.tight_layout()
+    st.pyplot(fig6)
+
     st.header("🗺️ State-wise Line Trends")
 
     df_sorted = data.sort_values("State")
