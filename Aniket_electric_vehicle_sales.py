@@ -83,6 +83,67 @@ if uploaded_file is not None:
     sns.barplot(x=top_states.values, y=top_states.index, palette="viridis", ax=ax)
     st.pyplot(fig)
 
+        # Cluster-wise Analysis of Categorical Features
+    st.subheader("Cluster-wise Breakdown of Key Features")
+
+    # 1. EV Sales Quantity by Cluster
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.barplot(x="Cluster", y="EV_Sales_Quantity", data=data, palette="viridis", ax=ax)
+    ax.set_title("EV Sales Quantity by Cluster")
+    ax.set_xlabel("Cluster")
+    ax.set_ylabel("EV Sales Quantity")
+    st.pyplot(fig)
+
+    # 2. Vehicle Category Count by Cluster
+    fig, ax = plt.subplots(figsize=(10, 6))
+    category_counts = data.groupby(['Cluster', 'Vehicle_Category']).size().reset_index(name='Count')
+    sns.barplot(x='Cluster', y='Count', hue='Vehicle_Category', data=category_counts, palette="viridis", ax=ax)
+    ax.set_title("Vehicle Category Distribution by Cluster")
+    st.pyplot(fig)
+
+    # 3. Vehicle Type Count by Cluster
+    fig, ax = plt.subplots(figsize=(12, 6))
+    type_counts = data.groupby(['Cluster', 'Vehicle_Type']).size().reset_index(name='Count')
+    sns.barplot(x='Cluster', y='Count', hue='Vehicle_Type', data=type_counts, palette="viridis", ax=ax)
+    ax.set_title("Vehicle Type Distribution by Cluster")
+    st.pyplot(fig)
+
+    # 4. Vehicle Class Count by Cluster
+    fig, ax = plt.subplots(figsize=(9, 6))
+    class_counts = data.groupby(['Cluster', 'Vehicle_Class']).size().reset_index(name='Count')
+    sns.barplot(x='Cluster', y='Count', hue='Vehicle_Class', data=class_counts, palette="viridis", ax=ax)
+    ax.set_title("Vehicle Class Distribution by Cluster")
+    st.pyplot(fig)
+
+    st.header("🗺️ State-wise Line Trends")
+
+    df_sorted = data.sort_values("State")
+
+    fig, axes = plt.subplots(2, 2, figsize=(18, 12))
+
+    # Line 1: EV Sales Quantity
+    sns.lineplot(x="State", y="EV_Sales_Quantity", data=df_sorted, marker='o', ax=axes[0, 0], color='b')
+    axes[0, 0].set_title("EV Sales Quantity by State")
+    axes[0, 0].tick_params(axis='x', rotation=90)
+
+    # Line 2: Vehicle Type
+    sns.lineplot(x="State", y="Vehicle_Type", data=df_sorted, marker='o', ax=axes[0, 1], color='r')
+    axes[0, 1].set_title("Vehicle Type by State")
+    axes[0, 1].tick_params(axis='x', rotation=90)
+
+    # Line 3: Vehicle Category
+    sns.lineplot(x="State", y="Vehicle_Category", data=df_sorted, marker='o', ax=axes[1, 0], color='g')
+    axes[1, 0].set_title("Vehicle Category by State")
+    axes[1, 0].tick_params(axis='x', rotation=90)
+
+    # Line 4: Vehicle Class
+    sns.lineplot(x="State", y="Vehicle_Class", data=df_sorted, marker='o', ax=axes[1, 1], color='purple')
+    axes[1, 1].set_title("Vehicle Class by State")
+    axes[1, 1].tick_params(axis='x', rotation=90)
+
+    plt.tight_layout()
+    st.pyplot(fig)
+    
     # Forecasting
     st.subheader("State-wise Forecast using Exponential Smoothing")
     try:
