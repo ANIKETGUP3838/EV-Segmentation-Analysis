@@ -9,7 +9,7 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 # Streamlit settings
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
-st.title("Electric Vehicle Sales Data Analysis & Clustering")
+st.title("Electric Vehicle Sales Data Analysis")
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
