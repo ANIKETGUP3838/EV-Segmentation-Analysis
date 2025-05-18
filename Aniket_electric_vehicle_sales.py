@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt #visualisation
 
 # Load the dataset:-
 
-data=pd.read_csv("C:\\Users\\DELL\\Downloads\\EV_Dataset.csv")
+data=pd.read_csv("/workspaces/EV-Segmentation-Analysis/EV_Dataset.csv")
 
 
 # Data Overview
