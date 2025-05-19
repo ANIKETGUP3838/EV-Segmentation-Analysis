@@ -8,3 +8,4 @@ openpyxl
 plotly
 Pillow
 requests
+pydeck
