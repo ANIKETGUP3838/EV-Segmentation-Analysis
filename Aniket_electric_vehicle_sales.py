@@ -18,9 +18,10 @@ st.title("Electric Vehicle Sales Data Analysis")
 
 url = "https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/blob/main/what-is-an-ev-scaled.jpg"  # Use raw GitHub link
 response = requests.get(url)
-image = Image.open(BytesIO(response.content))
 
-st.image(image, caption='Electric Vehicle Charging', use_column_width=True)
+# Open and display the image
+image = Image.open(BytesIO(response.content))
+st.image(image, caption="Electric Vehicle Illustration", use_column_width=True)
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
