@@ -254,7 +254,56 @@ if uploaded_file is not None:
     st.info("LSTM Forecasting, Sentiment Analysis, and Recommendation Systems need further data integration and modeling.")
     st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
     st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
-    st.markdown("- Recommendation Engine: Add user preference inputs.")    
+    st.markdown("- Recommendation Engine: Add user preference inputs.")
+    st.subheader("⚙️ AutoML Leaderboard (PyCaret)")
+    
+    if st.button("Run AutoML"):
+        pycaret_df = data.dropna(subset=['EV_Sales_Quantity'])
+        pycaret_df = pycaret_df[['EV_Sales_Quantity', 'State', 'Vehicle_Class', 'Vehicle_Category', 'Vehicle_Type', 'Year']]
+        reg = setup(pycaret_df, target='EV_Sales_Quantity', silent=True, session_id=123, verbose=False)
+        best_model = compare_models()
+        leaderboard = pull()
+        st.dataframe(leaderboard)
+
+    # ====================== GPT Summary ============================
+    st.subheader("🧠 Key Insight Summary using GPT")
+    if st.button("Generate Summary"):
+        openai.api_key = st.secrets["OPENAI_API_KEY"] if "OPENAI_API_KEY" in st.secrets else os.getenv("OPENAI_API_KEY")
+        if openai.api_key:
+            sample_data = data[['State', 'Year', 'EV_Sales_Quantity']].head(100).to_json()
+            with st.spinner("Thinking..."):
+                response = openai.ChatCompletion.create(
+                    model="gpt-4",
+                    messages=[
+                        {"role": "system", "content": "You are a data analyst."},
+                        {"role": "user", "content": f"Summarize key insights from this EV sales data: {sample_data}"}
+                    ]
+                )
+                st.success(response.choices[0].message['content'])
+        else:
+            st.warning("Please set your OpenAI API key in secrets or environment.")
+
+    # ======================= Policy Simulator ======================
+    st.subheader("📈 EV Policy Impact Simulator")
+    st.markdown("Adjust parameters to simulate EV adoption trends:")
+    subsidy = st.slider("Annual EV Subsidy per Vehicle (₹)", 0, 200000, 50000, step=10000)
+    petrol_price = st.slider("Petrol Price per Litre (₹)", 80, 150, 100)
+    charger_growth = st.slider("Annual Growth in Charging Infrastructure (%)", 0, 100, 20)
+
+    impact = (subsidy * 0.05) + (petrol_price * 100) + (charger_growth * 500)
+    projected_growth = min(impact, 1000000)
+    st.metric("📊 Projected Annual EV Sales Increase", f"{int(projected_growth):,} units")
+
+    # ================ Other Features Placeholder ====================
+    st.subheader("🧩 Upcoming Additions")
+    st.markdown("- ✅ AutoML Modeling")
+    st.markdown("- ✅ GPT Data Insight Summarization")
+    st.markdown("- ✅ EV Policy Impact Simulator")
+    st.markdown("- 🔜 Real-Time EV API Integration")
+    st.markdown("- 🔜 State-wise EV Recommendation Engine")
+    st.markdown("- 🔜 LSTM Forecasting")
+    st.markdown("- 🔜 Auto-generated PDF/HTML Reports")
+    st.markdown("- 🔜 PWA / Mobile Wrapper")
 
 else:
     st.info("Please upload a CSV file to begin analysis.")
