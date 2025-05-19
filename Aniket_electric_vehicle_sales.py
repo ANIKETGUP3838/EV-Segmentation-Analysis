@@ -8,6 +8,12 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import IsolationForest
+from sklearn.metrics import mean_squared_error
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
@@ -210,5 +216,60 @@ if uploaded_file is not None:
         st.pyplot(fig)
     except:
         st.warning("Correlation analysis not possible — ensure numeric columns exist.")
+    
+    # Predictive Modeling
+    st.subheader("🔮 Predictive Modeling (Random Forest)")
+    features = pd.get_dummies(data[['State', 'Vehicle_Class', 'Vehicle_Category', 'Vehicle_Type', 'Year']], drop_first=True)
+    target = data['EV_Sales_Quantity']
+    X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+    model = RandomForestRegressor()
+    model.fit(X_train, y_train)
+    preds = model.predict(X_test)
+    mse = mean_squared_error(y_test, preds)
+    st.metric("Random Forest MSE", round(mse, 2))
+
+    # Geospatial Map (simplified with fake lat/lon)
+    st.subheader("🌍 Geo Map of EV Sales (Mock Lat/Lon)")
+    state_sales = data.groupby("State")["EV_Sales_Quantity"].sum().reset_index()
+    # Simulated coordinates (should be replaced with real ones)
+    state_sales['lat'] = np.linspace(8, 37, len(state_sales))
+    state_sales['lon'] = np.linspace(70, 90, len(state_sales))
+    st.pydeck_chart(pdk.Deck(
+        initial_view_state=pdk.ViewState(latitude=22.0, longitude=78.0, zoom=3.5),
+        layers=[pdk.Layer(
+            "ScatterplotLayer",
+            data=state_sales,
+            get_position='[lon, lat]',
+            get_color='[200, 30, 0, 160]',
+            get_radius='EV_Sales_Quantity / 10'
+        )]
+    ))
+
+    # Anomaly Detection
+    st.subheader("⚠️ Anomaly Detection in Sales")
+    model_iso = IsolationForest(contamination=0.05)
+    data['Anomaly'] = model_iso.fit_predict(data[['EV_Sales_Quantity']])
+    fig, ax = plt.subplots()
+    sns.boxplot(x='Anomaly', y='EV_Sales_Quantity', data=data, ax=ax)
+    st.pyplot(fig)
+
+    # Market Share Interactive Chart
+    st.subheader("📊 Interactive Market Share")
+    market = data.groupby(['Year', 'Vehicle_Type'])['EV_Sales_Quantity'].sum().reset_index()
+    fig = px.area(market, x='Year', y='EV_Sales_Quantity', color='Vehicle_Type', title="Market Share Over Time")
+    st.plotly_chart(fig)
+
+    # Download Option
+    st.subheader("📥 Download Cleaned Data")
+    csv = data.to_csv(index=False).encode('utf-8')
+    st.download_button("Download CSV", csv, "cleaned_ev_data.csv", "text/csv")
+
+    # Placeholder for LSTM forecasting and NLP (requires external data and model setup)
+    st.subheader("🚧 Advanced Features Preview")
+    st.info("LSTM Forecasting, Sentiment Analysis, and Recommendation Systems need further data integration and modeling.")
+    st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
+    st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
+    st.markdown("- Recommendation Engine: Add user preference inputs.")    
+
 else:
     st.info("Please upload a CSV file to begin analysis.")
