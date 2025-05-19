@@ -18,7 +18,7 @@ st.title("Electric Vehicle Sales Data Analysis")
 
 url = "what-is-an-ev-scaled.jpg"  # Use raw GitHub link
 # Load and display the image
-image = Image.open("/mnt/data/what-is-an-ev-scaled.jpg")
+image = Image.open("https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/tree/main/what-is-an-ev-scaled.jpg")
 st.image(image, caption="Electric Vehicle Charging", use_column_width=True)
 
 # Upload CSV file
