@@ -260,13 +260,6 @@ if uploaded_file is not None:
     st.markdown("- Recommendation Engine: Add user preference inputs.")
     st.subheader("⚙️ AutoML Leaderboard (PyCaret)")
     
-    if st.button("Run AutoML"):
-        pycaret_df = data.dropna(subset=['EV_Sales_Quantity'])
-        pycaret_df = pycaret_df[['EV_Sales_Quantity', 'State', 'Vehicle_Class', 'Vehicle_Category', 'Vehicle_Type', 'Year']]
-        reg = setup(pycaret_df, target='EV_Sales_Quantity', session_id=123, verbose=False)
-        best_model = compare_models()
-        leaderboard = pull()
-        st.dataframe(leaderboard)
 
     # ====================== GPT Summary ============================
     st.subheader("🧠 Key Insight Summary using GPT")
