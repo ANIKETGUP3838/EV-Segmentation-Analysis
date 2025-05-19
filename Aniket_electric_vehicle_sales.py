@@ -17,11 +17,9 @@ st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
 
 url = "what-is-an-ev-scaled.jpg"  # Use raw GitHub link
-response = requests.get(url)
-
-# Open and display the image
-image = Image.open(BytesIO(response.content))
-st.image(image, caption="Electric Vehicle Illustration", use_column_width=True)
+# Load and display the image
+image = Image.open("/mnt/data/what-is-an-ev-scaled.jpg")
+st.image(image, caption="Electric Vehicle Charging", use_column_width=True)
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
