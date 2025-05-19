@@ -16,7 +16,7 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
 
-url = "https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/what-is-an-ev-scaled.jpg"  # Use raw GitHub link
+url = "https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/blob/main/what-is-an-ev-scaled.jpg"  # Use raw GitHub link
 response = requests.get(url)
 image = Image.open(BytesIO(response.content))
 
