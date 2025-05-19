@@ -1,6 +1,7 @@
 import io
 import sys
 import streamlit as st
+from PIL import Image
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -12,6 +13,8 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 # Streamlit settings
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
+
+image = Image.open("/mnt/data/what-is-an-ev-scaled.jpg")
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
