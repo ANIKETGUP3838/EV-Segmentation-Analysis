@@ -24,7 +24,9 @@ response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
 
 # Display it in Streamlit
-st.image(image, caption=' ',width=700)
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(image, width=300)
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
