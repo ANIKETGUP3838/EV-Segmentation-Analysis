@@ -1,7 +1,9 @@
 import io
 import sys
-import streamlit as st
 from PIL import Image
+import requests
+from io import BytesIO
+import streamlit as st
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -14,8 +16,11 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
 
-image = Image.open("https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/blob/main/what-is-an-ev-scaled.jpg")
-st.image(image, caption="Electric Vehicle Charging", use_column_width=True)
+url = "https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/raw/main/what-is-an-ev-scaled.jpg"  # Use raw GitHub link
+response = requests.get(url)
+image = Image.open(BytesIO(response.content))
+
+st.image(image, caption='Electric Vehicle Charging', use_column_width=True)
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
