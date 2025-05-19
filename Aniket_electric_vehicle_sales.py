@@ -261,7 +261,7 @@ if uploaded_file is not None:
     if st.button("Run AutoML"):
         pycaret_df = data.dropna(subset=['EV_Sales_Quantity'])
         pycaret_df = pycaret_df[['EV_Sales_Quantity', 'State', 'Vehicle_Class', 'Vehicle_Category', 'Vehicle_Type', 'Year']]
-        reg = setup(pycaret_df, target='EV_Sales_Quantity', silent=True, session_id=123, verbose=False)
+        reg = setup(pycaret_df, target='EV_Sales_Quantity', session_id=123, verbose=False)
         best_model = compare_models()
         leaderboard = pull()
         st.dataframe(leaderboard)
