@@ -230,23 +230,6 @@ if uploaded_file is not None:
     mse = mean_squared_error(y_test, preds)
     st.metric("Random Forest MSE", round(mse, 2))
 
-    # Geospatial Map (simplified with fake lat/lon)
-    st.subheader("🌍 Geo Map of EV Sales (Mock Lat/Lon)")
-    state_sales = data.groupby("State")["EV_Sales_Quantity"].sum().reset_index()
-    # Simulated coordinates (should be replaced with real ones)
-    state_sales['lat'] = np.linspace(8, 37, len(state_sales))
-    state_sales['lon'] = np.linspace(70, 90, len(state_sales))
-    st.pydeck_chart(pdk.Deck(
-        initial_view_state=pdk.ViewState(latitude=22.0, longitude=78.0, zoom=3.5),
-        layers=[pdk.Layer(
-            "ScatterplotLayer",
-            data=state_sales,
-            get_position='[lon, lat]',
-            get_color='[200, 30, 0, 160]',
-            get_radius='EV_Sales_Quantity / 10'
-        )]
-    ))
-
     # Anomaly Detection
     st.subheader("⚠️ Anomaly Detection in Sales")
     model_iso = IsolationForest(contamination=0.05)
