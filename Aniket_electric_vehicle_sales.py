@@ -16,9 +16,22 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
 
-# Load and display the image
-image = Image.open("https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/blob/main/what-is-an-ev-scaled.jpg")
-st.image(image, caption="Electric Vehicle Charging", use_column_width=True)
+try:
+    # Use the raw GitHub URL for direct image access
+    url = "https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis/blob/main/what-is-an-ev-scaled.jpg"
+    response = requests.get(url)
+
+    # Raise an error if the request failed
+    response.raise_for_status()
+
+    # Load and display the image
+    image = Image.open(BytesIO(response.content))
+    st.image(image, caption="What is an EV?", use_column_width=True)
+
+except requests.exceptions.RequestException as e:
+    st.error(f"Failed to fetch the image: {e}")
+except Exception as e:
+    st.error(f"Unable to open the image: {e}")
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
