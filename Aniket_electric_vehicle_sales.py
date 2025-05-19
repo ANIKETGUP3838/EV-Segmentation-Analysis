@@ -258,9 +258,7 @@ if uploaded_file is not None:
     st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
     st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
     st.markdown("- Recommendation Engine: Add user preference inputs.")
-    st.subheader("⚙️ AutoML Leaderboard (PyCaret)")
     
-
     # ====================== GPT Summary ============================
     st.subheader("🧠 Key Insight Summary using GPT")
     if st.button("Generate Summary"):
