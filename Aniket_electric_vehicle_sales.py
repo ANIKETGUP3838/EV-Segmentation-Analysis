@@ -24,8 +24,8 @@ if uploaded_file is not None:
     st.subheader("Dataset Preview")
     st.dataframe(data.head())
 
-    st.subheader("Missing Values")
-    st.write(data.isnull().sum())
+    st.subheader("Data Types: ")
+    st.write(data.dtypes)
 
     # K-Means Clustering
     st.subheader("K-Means Clustering")
