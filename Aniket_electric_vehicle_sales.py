@@ -24,7 +24,7 @@ response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
 
 # Display it in Streamlit
-st.image(image, caption='Image from GitHub')
+st.image(image, caption=' ',width=300)
 
 # Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
