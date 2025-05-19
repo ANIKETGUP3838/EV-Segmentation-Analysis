@@ -27,6 +27,9 @@ if uploaded_file is not None:
     st.subheader("Data Types: ")
     st.write(data.dtypes)
 
+    st.subheader("Info: ")
+    st.write(data.info())
+
     # K-Means Clustering
     st.subheader("K-Means Clustering")
     try:
