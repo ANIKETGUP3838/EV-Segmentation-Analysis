@@ -9,3 +9,4 @@ plotly
 Pillow
 requests
 pydeck
+openai
