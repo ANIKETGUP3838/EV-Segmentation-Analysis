@@ -1,3 +1,5 @@
+import io
+import sys
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -27,8 +29,11 @@ if uploaded_file is not None:
     st.subheader("Data Types: ")
     st.write(data.dtypes)
 
-    st.subheader("Info: ")
-    st.write(data.info())
+    st.subheader("Dataset Info")
+    buffer = io.StringIO()
+    data.info(buf=buffer)
+    s = buffer.getvalue()
+    st.text(s)
 
     # K-Means Clustering
     st.subheader("K-Means Clustering")
