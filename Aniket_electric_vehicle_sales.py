@@ -254,7 +254,7 @@ if uploaded_file is not None:
     projected_growth = min(impact, 1000000)
     st.metric("📊 Projected Annual EV Sales Increase", f"{int(projected_growth):,} units")
     
-    st.subheader("🚧 Advanced Features Preview")
+    st.subheader("🚧 Upcoming Advanced Features Preview")
     st.info("LSTM Forecasting, Sentiment Analysis, and Recommendation Systems need further data integration and modeling.")
     st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
     st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
