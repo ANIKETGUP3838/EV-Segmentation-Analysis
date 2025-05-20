@@ -25,24 +25,19 @@ from pycaret.regression import setup, compare_models, pull, save_model, predict_
 st.set_page_config(page_title="EV Sales Analysis", layout="wide")
 st.title("Electric Vehicle Sales Data Analysis")
 
-# Replace this with your actual raw GitHub image URL
 image_url = "https://raw.githubusercontent.com/ANIKETGUP3838/EV-Segmentation-Analysis/main/what-is-an-ev-scaled.jpg"
 
-# Load the image from the URL
 response = requests.get(image_url)
 image = Image.open(BytesIO(response.content))
 
-# Display it in Streamlit
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image(image, width=750)
 
-# Upload CSV file
 uploaded_file = st.file_uploader("Upload your EV Sales CSV file", type=["csv"])
 if uploaded_file is not None:
     data = pd.read_csv(uploaded_file)
 
-    # Preprocessing
     if 'Date' in data.columns:
         data['Date'] = pd.to_datetime(data['Date'], format='%d/%m/%Y', errors='coerce')
         data['Year'] = data['Date'].dt.year
@@ -118,7 +113,7 @@ if uploaded_file is not None:
         # Cluster-wise Analysis of Categorical Features
     st.subheader("Cluster-wise Breakdown of Key Features")
 
-    # 1. EV Sales Quantity by Cluster
+    # EV Sales Quantity by Cluster
     fig, ax = plt.subplots(figsize=(10, 6))
     sns.barplot(x="Cluster", y="EV_Sales_Quantity", data=data, palette="viridis", ax=ax)
     ax.set_title("EV Sales Quantity by Cluster")
@@ -126,21 +121,21 @@ if uploaded_file is not None:
     ax.set_ylabel("EV Sales Quantity")
     st.pyplot(fig)
 
-    # 2. Vehicle Category Count by Cluster
+    # Vehicle Category Count by Cluster
     fig, ax = plt.subplots(figsize=(10, 6))
     category_counts = data.groupby(['Cluster', 'Vehicle_Category']).size().reset_index(name='Count')
     sns.barplot(x='Cluster', y='Count', hue='Vehicle_Category', data=category_counts, palette="viridis", ax=ax)
     ax.set_title("Vehicle Category Distribution by Cluster")
     st.pyplot(fig)
 
-    # 3. Vehicle Type Count by Cluster
+    # Vehicle Type Count by Cluster
     fig, ax = plt.subplots(figsize=(12, 6))
     type_counts = data.groupby(['Cluster', 'Vehicle_Type']).size().reset_index(name='Count')
     sns.barplot(x='Cluster', y='Count', hue='Vehicle_Type', data=type_counts, palette="viridis", ax=ax)
     ax.set_title("Vehicle Type Distribution by Cluster")
     st.pyplot(fig)
 
-    # 4. Vehicle Class Count by Cluster
+    # Vehicle Class Count by Cluster
     fig, ax = plt.subplots(figsize=(9, 6))
     class_counts = data.groupby(['Cluster', 'Vehicle_Class']).size().reset_index(name='Count')
     sns.barplot(x='Cluster', y='Count', hue='Vehicle_Class', data=class_counts, palette="viridis", ax=ax)
@@ -166,22 +161,22 @@ if uploaded_file is not None:
 
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
 
-    # Line 1: EV Sales Quantity
+    #EV Sales Quantity
     sns.lineplot(x="State", y="EV_Sales_Quantity", data=df_sorted, marker='o', ax=axes[0, 0], color='b')
     axes[0, 0].set_title("EV Sales Quantity by State")
     axes[0, 0].tick_params(axis='x', rotation=90)
 
-    # Line 2: Vehicle Type
+    #Vehicle Type
     sns.lineplot(x="State", y="Vehicle_Type", data=df_sorted, marker='o', ax=axes[0, 1], color='r')
     axes[0, 1].set_title("Vehicle Type by State")
     axes[0, 1].tick_params(axis='x', rotation=90)
 
-    # Line 3: Vehicle Category
+    #Vehicle Category
     sns.lineplot(x="State", y="Vehicle_Category", data=df_sorted, marker='o', ax=axes[1, 0], color='g')
     axes[1, 0].set_title("Vehicle Category by State")
     axes[1, 0].tick_params(axis='x', rotation=90)
 
-    # Line 4: Vehicle Class
+    #Vehicle Class
     sns.lineplot(x="State", y="Vehicle_Class", data=df_sorted, marker='o', ax=axes[1, 1], color='purple')
     axes[1, 1].set_title("Vehicle Class by State")
     axes[1, 1].tick_params(axis='x', rotation=90)
@@ -245,17 +240,9 @@ if uploaded_file is not None:
     fig = px.area(market, x='Year', y='EV_Sales_Quantity', color='Vehicle_Type', title="Market Share Over Time")
     st.plotly_chart(fig)
 
-    # Download Option
     st.subheader("📥 Download Cleaned Data")
     csv = data.to_csv(index=False).encode('utf-8')
     st.download_button("Download CSV", csv, "cleaned_ev_data.csv", "text/csv")
-
-    # Placeholder for LSTM forecasting and NLP (requires external data and model setup)
-    st.subheader("🚧 Advanced Features Preview")
-    st.info("LSTM Forecasting, Sentiment Analysis, and Recommendation Systems need further data integration and modeling.")
-    st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
-    st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
-    st.markdown("- Recommendation Engine: Add user preference inputs.")
     
     st.subheader("📈 EV Policy Impact Simulator")
     st.markdown("Adjust parameters to simulate EV adoption trends:")
@@ -266,6 +253,12 @@ if uploaded_file is not None:
     impact = (subsidy * 0.05) + (petrol_price * 100) + (charger_growth * 500)
     projected_growth = min(impact, 1000000)
     st.metric("📊 Projected Annual EV Sales Increase", f"{int(projected_growth):,} units")
+    
+    st.subheader("🚧 Advanced Features Preview")
+    st.info("LSTM Forecasting, Sentiment Analysis, and Recommendation Systems need further data integration and modeling.")
+    st.markdown("- LSTM Forecasting: Needs time-series per state/vehicle.")
+    st.markdown("- NLP: Add corpus of EV policy documents or tweets.")
+    st.markdown("- Recommendation Engine: Add user preference inputs.")
 
 
 else:
