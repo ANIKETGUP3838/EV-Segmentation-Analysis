@@ -60,8 +60,19 @@ India’s EV market is rapidly growing due to environmental concerns, rising fue
 ---
 ## 📂 Dataset
 
-Ensure your uploaded CSV contains the following columns:
-State, Vehicle_Class, Vehicle_Category, Vehicle_Type, EV_Sales_Quantity, Date
+To use this application, make sure your uploaded CSV file includes the following columns:
+
+| Column Name         | Description                                                  | Example                         |
+|---------------------|--------------------------------------------------------------|----------------------------------|
+| `State`             | The name of the Indian state                                 | Maharashtra, Gujarat             |
+| `Vehicle_Class`     | Class of vehicle (e.g., 2-wheeler, 3-wheeler, 4-wheeler)     | 2W, 3W, 4W                       |
+| `Vehicle_Category`  | Vehicle usage category                                       | Passenger, Commercial            |
+| `Vehicle_Type`      | Specific type within class/category                          | E-Scooter, E-Rickshaw, EV Car    |
+| `EV_Sales_Quantity` | Number of EV units sold                                      | 12345                            |
+| `Date`              | Date of sale (used to extract year for trend analysis)       | 15/08/2022                       |
+
+💡 The `Date` column should be in `DD/MM/YYYY` format. The app will automatically convert it to extract the `Year` for time series analysis and forecasting.
+
 ---
 
 ## 📌 Simulation Sliders
