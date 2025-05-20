@@ -58,10 +58,35 @@ India’s EV market is rapidly growing due to environmental concerns, rising fue
 | PyCaret | AutoML experiments (optional) |
 
 ---
+## 📂 Dataset
 
-## 🚀 Getting Started
+Ensure your uploaded CSV contains the following columns:
+State, Vehicle_Class, Vehicle_Category, Vehicle_Type, EV_Sales_Quantity, Date
+---
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/ANIKETGUP3838/EV-Segmentation-Analysis.git
-cd EV-Segmentation-Analysis
+## 📌 Simulation Sliders
+
+The app includes interactive sliders to simulate the impact of different policies and external factors on EV adoption:
+
+- **EV Subsidy per Vehicle (₹)**
+- **Petrol Price per Litre (₹)**
+- **Annual Growth in Charging Infrastructure (%)**
+
+💡 These parameters dynamically affect the projected annual increase in EV sales shown within the dashboard.
+
+---
+
+## 🔮 Future Enhancements
+
+Planned advanced features for future development:
+
+- 📉 **LSTM-based deep learning forecasting**  
+  More robust time-series modeling using Recurrent Neural Networks.
+
+- 📃 **NLP on EV policy documents and consumer sentiment**  
+  Understand public opinion and policy impacts through natural language processing.
+
+- 🤖 **EV recommendation system for user preferences**  
+  Recommend EV models to users based on use-case, budget, and features.
+
+---
