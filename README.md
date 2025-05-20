@@ -101,3 +101,6 @@ Planned advanced features for future development:
   Recommend EV models to users based on use-case, budget, and features.
 
 ---
+## 📬 Contact
+
+For questions or collaborations, feel free to reach out via [LinkedIn](https://www.linkedin.com/in/aniket-gupta-90b49725a/) or [Email](aniket25287@gmail.com).
